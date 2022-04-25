@@ -14,7 +14,7 @@ public class Invoice {
 		//create a new file to write to
 		Formatter newFile = null;
 		try {
-			newFile = new Formatter("/https://github.com/Tequential/HyperionDevelopment/blob/main/driver-info.txt");
+			newFile = new Formatter("/Users/taqua/Desktop/hyperiondev/HyperionDevelopment/invoice.txt");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -33,6 +33,8 @@ public class Invoice {
 		String restaurantName = "";
 		String restContact = "";
 		String restaurantLocation = "";
+		
+		//Order Details
 		String menuItem = "";
 		int mealQty = 0;
 		float mealPrice = 0;
@@ -47,7 +49,7 @@ public class Invoice {
 		
 		//read drivers from txt file and store driver objects in an array so that they can be sorted
 		try {
-			File readFile = new File("/Users/taqua/Dropbox/Chevaun Martin-117761/2. Advanced Programming Concepts/Task 7/drivers.txt");
+			File readFile = new File("/Users/taqua/Desktop/hyperiondev/HyperionDevelopment/driver-info.txt");
 			Scanner sc = new Scanner(readFile);
 			sc.useDelimiter(", \n");
 			String allDrivers = sc.next();
@@ -79,7 +81,7 @@ public class Invoice {
 		//Request customer location			
 		customerLocation = promptUserStr("Enter Customer City:");
 
-		//check if the customer location matches a driver location. Terminate the program and print an apology if a driver is not available.
+		//check if the customer location matches a driver location. 
 		boolean custLocation = false;
 		for (int i = 0; i < driversarraylist.size(); i++) {
 			if	(driversarraylist.get(i).driverLocation.equalsIgnoreCase(customerLocation)) {
@@ -88,6 +90,7 @@ public class Invoice {
 			} 
 		}
 		
+		//Terminate the program and print an apology if a driver is not available.
 		if (custLocation == false) {
 			String noDrivers = "Sorry! Our drivers are too far away from you to be able to deliver to your location.";
 			newFile.format("%s", noDrivers);
@@ -110,6 +113,7 @@ public class Invoice {
 
 			customerSuburb = promptUserStr("Enter customer suburb:");
 			
+			//Request restaurant details
 			restaurantName = promptUserStr("Enter the restaurant name:");
 
 			restaurantLocation = promptUserStr("Enter the restaurant City:");
@@ -131,7 +135,6 @@ public class Invoice {
 				System.out.print(noDrivers);
 			} else if (driverAvailable == true) {
 			
-			//Request restaurant details
 			restContact = promptUserStr("Enter the restaurant contact number:");
 	
 			menuItem = promptUserStr("What menu item would you like to order?");
@@ -143,7 +146,7 @@ public class Invoice {
 			mealPrice = promptUserFloat("What is the price of this item?");
 			mealsPrice.add(mealPrice);
 			
-			//Request a new menu item
+			//Request menu items
 			boolean status = true;
 			while (status == true) {
 				menuItem = promptUserStr("Add another menu item to your order:\nIf you have nothing else to add, type in 'done'");
